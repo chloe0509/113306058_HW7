@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link rel="stylesheet" href="113306058_HW7.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 編輯名稱功能
+            let isEditing = false;
+            const editButton = document.getElementById("edit-name-button");
+            const nameElement = document.getElementById("name-display");
+            
+            editButton.addEventListener("click", () => {
+                if (isEditing) {
+                    // Save mode
+                    const input = document.getElementById("name-input");
+                    nameElement.innerHTML = input.value;
+                    editButton.textContent = "edit";
+                } else {
+                    // Edit mode
+                    const currentName = nameElement.textContent;
+                    nameElement.innerHTML = `<input id='name-input' type='text' value='${currentName}' />`;
+                    editButton.textContent = "save";
+                }
+                isEditing = !isEditing;
+            });
+
+            const addMusicButton = document.getElementById("add-music-button");
+            const musicFormContainer = document.getElementById("music-form-container");
+            const favoriteMusicSection = document.querySelector(".favorite-music .music-grid");
+
+            addMusicButton.addEventListener("click", () => {
+                musicFormContainer.innerHTML = `
+                    <form id='music-form'>
+                        <label for='music-link'></label>
+                        <input type='url' id='music-link' />
+                        <label for='music-name'></label>
+                        <input type='text' id='music-name' />
+                        <button type='submit'>Submit</button>
+                    </form>
+                `;
+
+                const musicForm = document.getElementById("music-form");
+                musicForm.addEventListener("submit", (event) => {
+                    event.preventDefault();
+
+                    const name = document.getElementById("music-name").value;
+                    const link = document.getElementById("music-link").value;
+
+                    if (!name || !link) {
+                    alert("Please fill in all fields.");
+                    return;
+                }
+
+                favoriteMusicSection.innerHTML += `
+                    <div class='music-item'>
+                        <a href='${link}' target='_blank'>
+                            <img src='./img/spotify.png' alt='${name}'>
+                        </a>
+                        <p>${name}</p>
+                    </div>
+                `;
+                musicFormContainer.innerHTML = "";
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <!-- Photo Panel -->
+            <div class="photo-panel">
+                <img src="./img/Moomin3.jpg" width="100%" height="auto" alt="Moomin">
+            </div>  
+            <!-- Text Content Panel -->
+            <div class="text-content">
+                <div style="display: flex; align-items: center; justify-content: flex-start; gap: 10px;">
+                <h1 id="name-display">CHLOE</h1>
+                <button id="edit-name-button">edit</button>
+                </div>
+                <div class="about-me">
+                    <h2>ABOUT ME</h2>
+                    <p>As a freshman in the Department of Management Information Systems at National Chengchi University, I have experience in Java, HTML, and CSS, and I’m looking forward to an exciting university experience!</p>
+                </div>
+                <div class="contact">
+                    <h2>CONTACT</h2>
+                    <p>113306058@nccu.edu.tw</p>
+                </div>
+                <img src="./img/nccu.png" alt="NCCU Icon" class="nccu-icon">
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <!-- Education Section -->
+            <div class="section education">
+                <h2>Education</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="year">2024 - Now</span>
+                        <div class="description">National Chengchi University, Department of MIS</div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="year">2022 - 2024</span>
+                        <div class="description">Kaohsiung Municipal Kaohsiung Girls' Senior High School</div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="year">2019 - 2022</span>
+                        <div class="description">Middle School Graduation, Started developing an interest in computer science</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Homework List Section -->
+            <div class="section homework-list">
+                <h2>Homework List</h2>
+                <ul>
+                    <li>HW1 - <a href="https://github.com/chloe0509/HW1..git" >https://github.com/chloe0509/HW1</a></li><p></p>
+                    <li>HW2 - <a href="https://github.com/chloe0509/HW2.git" >https://github.com/chloe0509/HW2</a></li><p></p>
+                    <li>HW3 - <a href="https://github.com/chloe0509/HW3.git" >https://github.com/chloe0509/HW3</a></li>
+                </ul>
+            </div>
+            <!-- Favorite Music Section -->
+            <div class="section favorite-music">
+                <h2>Favorite Music</h2>
+                <div class="music-grid">
+                    <div class="music-item">
+                        <a href="https://youtu.be/Vd9_kJkGcGs?feature=shared"><img src="./img/lemonade.jpg" alt="Lemonade"></a>
+                        <p>Lemonade</p>
+                    </div>
+                    <div class="music-item">
+                        <a href="https://youtu.be/_hWtuYSHiWk?feature=shared"><img src="./img/roses.png" alt="Roses"></a>
+                        <p>Roses</p>
+                    </div>
+                    <div class="music-item">
+                        <a href="https://youtu.be/Ol9OH_0dlWM?feature=shared"><img src="./img/cry for love.jpg" alt="Cry For Love"></a>
+                        <p>Cry For Love</p>
+                    </div>
+                    <div class="music-item">
+                        <a href="https://youtu.be/Ianq_1GDzbE?si=njOJEYtpEBIsoPty"><img src="./img/sofa.jpg" alt="SOFA"></a>
+                        <p>SOFA</p>
+                    </div>
+                </div>
+                <button id="add-music-button">add</button>
+                <div id="music-form-container"></div>
+            </div>
+            <p class="music-note">Note: All the listed music belongs to the R&B genre, showcasing its smooth and soulful style.</p>
+        </div>
+    </div>
+</body>
+</html>
